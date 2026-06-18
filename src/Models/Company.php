@@ -31,12 +31,12 @@ class Company extends Model
     }
     public function job_vacancies()
     {
-        return $this->hasMany(Job_vacancy::class,'company_id','id');
+        return $this->hasMany(Job_Vacancy::class,'company_id','id');
     }  
     
     public function job_applications()
     {
-        return $this->hasManyThrough(Job_Application::class, Job_vacancy::class,'company_id','job_vacancy_id','id','id');
+        return $this->hasManyThrough(Job_Application::class, Job_Vacancy::class,'company_id','job_vacancy_id','id','id');
     }
     
 }

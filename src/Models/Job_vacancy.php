@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 #[Fillable(['title', 'description','salary','location','type',
 'required_skills','view_count', 'company_id','job_category_id'])]
-class Job_vacancy extends Model
+class Job_Vacancy extends Model
 {
     use HasFactory, HasUuids,SoftDeletes;
 
