@@ -20,6 +20,8 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, SoftDeletes , HasUuids;
 
+    protected $table = 'users';
+
     protected $keyType = 'string';
     public $incrementing = false;
     protected $dates = ['deleted_at'];
