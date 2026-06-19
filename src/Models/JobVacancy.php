@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
-use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
-#[Fillable(['name', 'address', 'industry','website','owner_id'])]
-class Company extends Model
+#[Fillable(['title', 'description','salary','location','type',
+'required_skills','view_count', 'company_id','job_category_id'])]
+class JobVacancy extends Model
 {
-    use HasFactory,HasUuids,SoftDeletes;
+    use HasFactory, HasUuids,SoftDeletes;
 
-    protected $table = 'companies';
+    protected $table = 'job_vacancies';
     protected $keyType = 'string';
     public $incrementing = false;
     protected $dates = ['deleted_at'];
@@ -25,18 +24,17 @@ class Company extends Model
             'deleted_at' => 'datetime',
         ];
     }
-    public function user()
+    public function company()
     {
-        return $this->belongsTo(User::class,'owner_id','id');
+        return $this->belongsTo(Company::class,'company_id','id');
     }
-    public function job_vacancies()
+    public function job_category()
     {
-        return $this->hasMany(JobVacancy::class,'company_id','id');
-    }  
-    
+        return $this->belongsTo(JobCategory::class,'job_category_id','id');
+    }
     public function job_applications()
     {
-        return $this->hasManyThrough(JobApplication::class, JobVacancy::class,'company_id','job_vacancy_id','id','id');
+        return $this->hasMany(JobApplication::class,'job_vacancy_id','id');
     }
-    
+
 }

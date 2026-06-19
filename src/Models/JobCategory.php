@@ -9,28 +9,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
-#[Fillable(['file_name', 'file_url', 'contact_detail','summary','skills','educations','experiences','user_id'])]
-class Resume extends Model
+#[Fillable(['name'])]
+class JobCategory extends Model
 {
-    use HasFactory,HasUuids,SoftDeletes;
+    use HasFactory, HasUuids,SoftDeletes;
 
-    protected $table = 'resumes';
+    protected $table = 'job_categories';
     protected $keyType = 'string';
     public $incrementing = false;
     protected $dates = ['deleted_at'];
+
     protected function casts(): array
     {
         return [
             'deleted_at' => 'datetime',
         ];
     }
-    public function user()
+    public function Job_vacancies()
     {
-        return $this->belongsTo(User::class,'user_id','id');
-    }
-    public function job_applications()
-    {
-        return $this->hasMany(JobApplication::class,'resume_id','id');
-    }
+        return $this->hasMany(JobVacancy::class,'job_category_id','id');
+    }    
     
 }
